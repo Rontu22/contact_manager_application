@@ -58,30 +58,6 @@ class _HomeScreenState extends State<HomeScreen> {
               ))
         ],
       ),
-      // body: Center(
-      //   child: CupertinoButton(
-      //     child: ContactCard(
-      //       email: "ee",
-      //       phNumber: "phe",
-      //       name: "name",
-      //     ),
-      //     onPressed: () async {
-      //       _contacts.forEach((element) {
-      //         print(element);
-      //       });
-      //       print(_contacts[1].name);
-
-      //       // callDatabase();
-      //       // List<ContactModel> models = await retriveData();
-      //       // models.forEach((element) {
-      //       //   print(element);
-      //       // });
-      //       // contacts.then((value) => value.forEach((element) {
-      //       //       print(element.toJson());
-      //       //     }));
-      //     },
-      //   ),
-      // ),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
         child: ListView.builder(
@@ -102,24 +78,12 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  // Future<void> callDatabase() async {
-  //   final ref = FirebaseDatabase.instance.ref();
-  //   final snapshot =
-  //       await ref.child(FirebaseAuth.instance.currentUser!.uid).get();
-  //   print(snapshot.value);
-  // }
-
   Future<List<ContactModel>> retriveData() async {
     final ref = FirebaseDatabase.instance.ref();
     DataSnapshot snapshot =
         await ref.child(FirebaseAuth.instance.currentUser!.uid).get();
     List<ContactModel> models = [];
     for (final child in snapshot.children) {
-      // String name = child.children.first.value.toString();
-      // print(child.children.first.key);
-      // print(child.children
-      //     .firstWhere((element) => element.key == 'phNumber')
-      //     .value);
       String phNumber = child.children
           .firstWhere((element) => element.key == 'phNumber')
           .value
@@ -132,30 +96,11 @@ class _HomeScreenState extends State<HomeScreen> {
           .firstWhere((element) => element.key == 'name')
           .value
           .toString();
-      // print(name);
-      // print(phNumber);
-      // print(email);
+
       ContactModel model =
           new ContactModel(name: name, email: email, phoneNumber: phNumber);
       models.add(model);
     }
-
-    // Object? modelsList = snapshot.value;
-    // print(modelsList);
-
-    // snapshot.children.forEach((element) {
-    //   print(element.key);
-    //   print(element.value);
-    //   // Map<String, dynamic> json = Map.from(element.value);
-    // });
-    // print(snapshot);
-    // for (final child in snapshot.children) {
-    //   print(child.key);
-
-    //   // Map<String, dynamic> m = child.value as Map<String, dynamic>;
-    //   // print(m);
-    //   // ContactModel model = ContactModel.fromJson({"name": child.value['name'],});
-    // }
 
     return models;
   }

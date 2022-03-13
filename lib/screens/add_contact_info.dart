@@ -25,7 +25,6 @@ class _AddContactsScreenState extends State<AddContactsScreen> {
       {required String name,
       required String phNumber,
       required String email}) async {
-    // final DatabaseReference contactRef = FirebaseDatabase.instance.ref("One");
     String userId = FirebaseAuth.instance.currentUser!.uid!.toString();
     DatabaseReference ref = FirebaseDatabase.instance.ref("$userId");
     Map userData = {
@@ -33,6 +32,7 @@ class _AddContactsScreenState extends State<AddContactsScreen> {
       "phNumber": phNumber,
       "email": email,
     };
+    // To create an unique id and then add data
     ref.push().set(userData);
 
     // DatabaseReference ref = FirebaseDatabase.instance.ref("users/123");
