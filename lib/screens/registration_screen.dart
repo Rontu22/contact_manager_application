@@ -84,20 +84,20 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
       ),
     );
 
-    final secondNameField = TextFormField(
-      autofocus: false,
-      controller: secondNameEditingController,
-      keyboardType: TextInputType.name,
-      onSaved: (value) {
-        secondNameEditingController.text = value!;
-      },
-      textInputAction: TextInputAction.next,
-      decoration: InputDecoration(
-        prefixIcon: Icon(Icons.mail),
-        border: OutlineInputBorder(),
-        hintText: "Second Name",
-      ),
-    );
+    // final secondNameField = TextFormField(
+    //   autofocus: false,
+    //   controller: secondNameEditingController,
+    //   keyboardType: TextInputType.name,
+    //   onSaved: (value) {
+    //     secondNameEditingController.text = value!;
+    //   },
+    //   textInputAction: TextInputAction.next,
+    //   decoration: InputDecoration(
+    //     prefixIcon: Icon(Icons.mail),
+    //     border: OutlineInputBorder(),
+    //     hintText: "Second Name",
+    //   ),
+    // );
 
     final emailField = TextFormField(
       autofocus: false,
@@ -130,21 +130,21 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
       ),
     );
 
-    final confirmPasswordField = TextFormField(
-      autofocus: false,
-      obscureText: true,
-      controller: confirmPasswordEditingController,
-      keyboardType: TextInputType.name,
-      onSaved: (value) {
-        confirmPasswordEditingController.text = value!;
-      },
-      textInputAction: TextInputAction.next,
-      decoration: InputDecoration(
-        prefixIcon: Icon(Icons.mail),
-        border: OutlineInputBorder(),
-        hintText: "Confirm Password",
-      ),
-    );
+    // final confirmPasswordField = TextFormField(
+    //   autofocus: false,
+    //   obscureText: true,
+    //   controller: confirmPasswordEditingController,
+    //   keyboardType: TextInputType.name,
+    //   onSaved: (value) {
+    //     confirmPasswordEditingController.text = value!;
+    //   },
+    //   textInputAction: TextInputAction.next,
+    //   decoration: InputDecoration(
+    //     prefixIcon: Icon(Icons.mail),
+    //     border: OutlineInputBorder(),
+    //     hintText: "Confirm Password",
+    //   ),
+    // );
     Size size = MediaQuery.of(context).size;
     return Scaffold(
         backgroundColor: Colors.white,
@@ -164,10 +164,10 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                       SizedBox(
                         height: size.height * 0.05,
                       ),
-                      secondNameField,
-                      SizedBox(
-                        height: size.height * 0.05,
-                      ),
+                      // secondNameField,
+                      // SizedBox(
+                      //   height: size.height * 0.05,
+                      // ),
                       emailField,
                       SizedBox(
                         height: size.height * 0.05,
@@ -176,10 +176,10 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                       SizedBox(
                         height: size.height * 0.05,
                       ),
-                      confirmPasswordField,
-                      SizedBox(
-                        height: size.height * 0.05,
-                      ),
+                      // confirmPasswordField,
+                      // SizedBox(
+                      //   height: size.height * 0.05,
+                      // ),
                       CupertinoButton(
                         color: Colors.blue,
                         child: Text("Sign-Up"),

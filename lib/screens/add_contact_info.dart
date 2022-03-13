@@ -1,5 +1,10 @@
+import 'dart:convert';
+
+import 'package:contact_manager/screens/contacts_screen.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:firebase_database/firebase_database.dart';
 
 class AddContactsScreen extends StatefulWidget {
   const AddContactsScreen({Key? key}) : super(key: key);
@@ -16,11 +21,29 @@ class _AddContactsScreenState extends State<AddContactsScreen> {
   final TextEditingController emailEditingController =
       new TextEditingController();
 
+  Future<void> _addData(
+      {required String name,
+      required String phNumber,
+      required String email}) async {
+    // final DatabaseReference contactRef = FirebaseDatabase.instance.ref("One");
+    String userId = FirebaseAuth.instance.currentUser!.uid!.toString();
+    DatabaseReference ref = FirebaseDatabase.instance.ref("$userId");
+    Map userData = {
+      "name": name,
+      "phNumber": phNumber,
+      "email": email,
+    };
+    ref.push().set(userData);
+
+    // DatabaseReference ref = FirebaseDatabase.instance.ref("users/123");
+    debugPrint(FirebaseAuth.instance.currentUser!.uid!.toString());
+  }
+
   @override
   Widget build(BuildContext context) {
     final nameField = TextFormField(
       autofocus: false,
-      controller: emailEditingController,
+      controller: nameEditingController,
       keyboardType: TextInputType.name,
       onSaved: (value) {
         emailEditingController.text = value!;
@@ -34,14 +57,14 @@ class _AddContactsScreenState extends State<AddContactsScreen> {
     );
     final phoneNumberField = TextFormField(
       autofocus: false,
-      controller: emailEditingController,
+      controller: phoneEditingController,
       keyboardType: TextInputType.name,
       onSaved: (value) {
         emailEditingController.text = value!;
       },
       textInputAction: TextInputAction.next,
       decoration: InputDecoration(
-        prefixIcon: Icon(Icons.mail),
+        prefixIcon: Icon(Icons.phone),
         border: OutlineInputBorder(),
         hintText: "Enter Phone Number",
       ),
@@ -66,7 +89,7 @@ class _AddContactsScreenState extends State<AddContactsScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text("Add Contact"),
+        title: const Text("Add Contact"),
       ),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
@@ -79,7 +102,18 @@ class _AddContactsScreenState extends State<AddContactsScreen> {
           sizedBox,
           sizedBox,
           CupertinoButton(
-              color: Colors.blue, child: Text("Save"), onPressed: () {})
+              color: Colors.blue,
+              child: const Text("Save"),
+              onPressed: () {
+                _addData(
+                    name: nameEditingController.text,
+                    phNumber: phoneEditingController.text,
+                    email: emailEditingController.text);
+                Navigator.pushAndRemoveUntil(
+                    context,
+                    MaterialPageRoute(builder: (context) => const HomeScreen()),
+                    (route) => false);
+              })
         ]),
       ),
     );
